@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        :root {
+            --primary-color-light: #4EA685;
+            --secondary-color-light: #57B894;
+            --background-color-light: #ffffff;
+            --text-color-light: #000000;
+            --input-background-light: #efefef;
+            --input-border-light: #ffffff;
+            --input-focus-border-light: #4EA685;
+            
+            --primary-color-dark: #1b1b1b;
+            --secondary-color-dark: #2c2c2c;
+            --background-color-dark: #333333;
+            --text-color-dark: #ffffff;
+            --input-background-dark: #444444;
+            --input-border-dark: #555555;
+            --input-focus-border-dark: #777777;
+        }
+
+        body.light-theme {
+            --primary-color: var(--primary-color-light);
+            --secondary-color: var(--secondary-color-light);
+            --background-color: var(--background-color-light);
+            --text-color: var(--text-color-light);
+            --input-background: var(--input-background-light);
+            --input-border: var(--input-border-light);
+            --input-focus-border: var(--input-focus-border-light);
+        }
+
+        body.dark-theme {
+            --primary-color: var(--primary-color-dark);
+            --secondary-color: var(--secondary-color-dark);
+            --background-color: var(--background-color-dark);
+            --text-color: var(--text-color-dark);
+            --input-background: var(--input-background-dark);
+            --input-border: var(--input-border-dark);
+            --input-focus-border: var(--input-focus-border-dark);
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: var(--text-color);
+        }
+
+        html,
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: var(--background-color);
+        }
+
+        .container {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .form-wrapper {
+            width: 100%;
+            max-width: 28rem;
+            background-color: var(--background-color);
+            border-radius: 1.5rem;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            padding: 2rem;
+            display: none;
+        }
+
+        .form-wrapper.active {
+            display: block;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 1rem;
+            transform: translateY(-50%);
+            font-size: 1.4rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem 3rem;
+            font-size: 1rem;
+            background-color: var(--input-background);
+            border-radius: .5rem;
+            border: 0.125rem solid var(--input-border);
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border: 0.125rem solid var(--input-focus-border);
+        }
+
+        .form button {
+            cursor: pointer;
+            width: 100%;
+            padding: .6rem 0;
+            border-radius: .5rem;
+            border: none;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            font-size: 1.2rem;
+            outline: none;
+        }
+
+        .form p {
+            margin: 1rem 0;
+            font-size: .9rem;
+        }
+
+        .pointer {
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--background-color);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border-radius: 1rem;
+            border: none;
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <button class="theme-toggle" onclick="toggleTheme()">Switch to Dark Theme</button>
+    <div class="container">
+        <!-- SIGN IN FORM -->
+        <div id="sign-in-form" class="form-wrapper active">
+            <form class="form sign-in" action="connect.php" method="POST" onsubmit="handleSignIn(); return false;">
+                <div class="input-group">
+                    <i class='bx bxs-user'></i>
+                    <input type="text" id="signin-email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class='bx bxs-lock-alt'></i>
+                    <input type="password" id="signin-password" name="password" placeholder="Password" required>
+                    <div class="g-recaptcha" data-sitekey="6LerVvEpAAAAAOIOw1I8PCNz2wTvUqsjCAl8XafG"></div>           
+                </div>
+                <button type="submit" name="signin">Sign in</button>
+                <p id="lockout-message"></p>
+                <p>
+                    <span>Don't have an account?</span>
+                    <b onclick="toggleForm()" class="pointer">Sign up here</b>
+                </p>
+                <p>
+                    <b onclick="showForgotPasswordModal()" class="pointer">Forgot Password?</b>
+                </p>
+            </form>
+        </div>
+        
+        <!-- SIGN UP FORM -->
+        <div id="sign-up-form" class="form-wrapper">
+            <form class="form sign-up" action="connect.php" method="POST" onsubmit="onSubmit(); return false;">
+                <div class="input-group">
+                    <i class='bx bxs-envelope'></i>
+                    <input type="email" id="signup-email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <i class='bx bxs-lock-alt'></i>
+                    <input type="password" id="signup-password" name="password" placeholder="Password" required>
+                </div>
+                <input type="checkbox" id="rememberMeCheckbox" onchange="handleRememberMe()">
+                <label for="rememberMeCheckbox">Remember me</label>
+                
+                <button type="submit" name="signup">Sign up</button>
+                <p>
+                    <span>Already have an account?</span>
+                    <b onclick="toggleForm()" class="pointer">Sign in here</b>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="modal">
+        <div class="modal-content">
+            <form class="form" action="connect.php" method="POST">
+                <div class="input-group">
+                    <i class='bx bx-mail-send'></i>
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <button type="submit">Send OTP</button>
+                <p>
+                    <b onclick="hideForgotPasswordModal()" class="pointer">Close</b>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const signInForm = document.getElementById('sign-in-form');
+        const signUpForm = document.getElementById('sign-up-form');
+        const forgotPasswordModal = document.getElementById('forgot-password-modal');
+        const themeToggleButton = document.querySelector('.theme-toggle');
+        
+        function toggleForm() {
+            signInForm.classList.toggle('active');
+            signUpForm.classList.toggle('active');
+        }
+
+        function showForgotPasswordModal() {
+            forgotPasswordModal.classList.add('active');
+        }
+
+        function hideForgotPasswordModal() {
+            forgotPasswordModal.classList.remove('active');
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            if (body.classList.contains('light-theme')) {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                themeToggleButton.textContent = 'Switch to Light Theme';
+            } else {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                themeToggleButton.textContent = 'Switch to Dark Theme';
+            }
+        }
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>

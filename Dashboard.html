@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard with Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .navbar {
+            background-color: #004085;
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #fff;
+        }
+        #sidebar {
+            background-color: #343a40;
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+        }
+        #sidebar .nav-link {
+            color: #ddd;
+            font-size: 1.1em;
+        }
+        #sidebar .nav-link.active {
+            background-color: #495057;
+            color: #fff;
+        }
+        #sidebar .nav-link:hover {
+            background-color: #495057;
+        }
+        main {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background: #004085;
+            color: #fff;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+        }
+        .footer {
+            background: #004085;
+            color: #fff;
+            border-top: 1px solid #e9ecef;
+        }
+        .footer a {
+            color: #ffc107;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+                <li class="nav-item"><a class="nav-link" href="styleform.html">Register/Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-home"></i> Overview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line"></i> Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-project-diagram"></i> Projects
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-file-alt"></i> Reports
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Widgets -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Widget 1</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>Some content for the first widget...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Widget 2</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>Some content for the second widget...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Submit Your Information</h4>
+                    </div>
+                    <div class="card-body">
+                      
+    <form>
+        <div class="form-group">
+            <label for="slNumber">SL Number</label>
+            <input type="text" class="form-control" id="slNumber" placeholder="Enter SL number">
+        </div>
+       
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+            <label for="uploadImage">Upload Image</label>
+            <input type="file" class="form-control-file" id="uploadImage">
+        </div>
+       
+        <button type="submit" class="btn btn-primary">submit</button>
+        <button type="button" class="btn btn-secondary" onclick="logout()">Logout</button>
+    </form>
+</div>
+
+<script>
+    function logout() {
+        // Add your logout logic here
+        alert('Logging out...');
+    }
+</script>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-secondary" onclick="logout()">Logout</button>
+                        </form>
+                    </div>
+                    
+                    <script>
+                        function logout() {
+                            // Add your logout logic here
+                            alert('Logging out...');
+                        }
+                    </script>
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <span class="text-muted">© 2024 Your Dashboard. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General styling for the menu bar */
+        .menu-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #c5c6c7;
+            padding: 10px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 50px; /* Adjust based on your logo size */
+        }
+
+        .menu-options {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-option {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .menu-option a {
+            text-decoration: none;
+            color: orangered;
+            padding: 10px 15px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-option a:hover {
+            background-color: #e9ecef;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .submenu-item {
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+
+        .submenu-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .menu-option:hover .submenu {
+            display: block;
+        }
+
+        /* Carousel container styling */
+        .carousel-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            width: 48%;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .carousel img, .carousel .text-slide {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .carousel img.active, .carousel .text-slide.active {
+            display: block;
+        }
+
+        .carousel .text-slide {
+            padding: 20px;
+            box-sizing: border-box;
+            height: 300px; /* Ensure a consistent height for all text slides */
+            overflow: auto; /* Ensure content is scrollable if it exceeds the height */
+        }
+
+        /* Fixed image size */
+        .carousel img {
+            width: 100%;
+            height: 300px; /* Set a fixed height */
+            object-fit: cover; /* Ensure the image covers the area */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .menu-bar {
+                flex-direction: column;
+            }
+
+            .menu-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu-option {
+                margin: 10px 0;
+            }
+
+            .menu-bar .auth-links {
+                margin-top: 10px;
+            }
+
+            .carousel-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .carousel {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+        
+        .auth-links a {
+            color: #fff;
+            width: 130px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(15, 15, 15);
+            border: none;
+            font-weight: 600;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px rgba(47, 46, 46, 0.103);
+            position: relative;
+            overflow: hidden;
+            transition-duration: .3s;
+        }
+
+        .auth-links a::before {
+            width: 130px;
+            height: 130px;
+            position: absolute;
+            content: "";
+            background-color: white;
+            border-radius: 50%;
+            left: -100%;
+            top: 0;
+            transition-duration: .3s;
+            mix-blend-mode: difference;
+        }
+
+        .auth-links a:hover::before {
+            transition-duration: .5s;
+            transform: translate(100%,-50%);
+            border-radius: 0;
+        }
+
+        .auth-links a:active {
+            transform: translate(5px,5px);
+            transition-duration: .3s;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            margin-bottom: 20px;
+            flex: 1 1 200px; /* Flex-grow, flex-shrink, and flex-basis */
+            min-width: 200px; /* Ensures a minimum width for responsiveness */
+        }
+
+        .footer-section h4 {
+            margin-bottom: 5px;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin: 5px 0;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .google-map {
+            flex: 1 1 300px; /* Adjust the flex basis as needed */
+            max-width: 300px; /* Set a maximum width for the map */
+            margin-left: 20px; /* Add some space between the sections */
+        }
+
+        .google-map iframe {
+            width: 100%;
+            height: 200px; /* Adjust height as needed */
+            border: none;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #fff; /* Change the color as needed */
+            margin: 20px 0; /* Adjust the margin as needed */
+        }
+
+        /* Dark theme styles */
+        .dark-theme {
+            background-color: #1d1d1d;
+            color: #c5c6c7;
+        }
+
+        .dark-theme .menu-bar {
+            background-color: #333;
+        }
+
+        .dark-theme .menu-option a {
+            color: #f0a500;
+        }
+
+        .dark-theme .submenu {
+            background-color: #444;
+        }
+
+        .dark-theme .submenu-item {
+            color: #f0a500;
+        }
+
+        .dark-theme .submenu-item:hover {
+            background-color: #555;
+        }
+
+        .dark-theme footer {
+            background-color: #111;
+        }
+
+        .dark-theme .footer-section a {
+            color: #f0a500;
+        }
+
+        .dark-theme .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="menu-bar">
+        <div class="logo">
+            <img src="logoooo.png" alt="Logo">
+        </div>
+        
+        <ul class="menu-options">
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>HOME</b></a>
+            </li>
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>ABOUT</b></a>
+                <div class="submenu">
+                    <a href="#" style="color: orangered;" class="submenu-item">ACADEMIC'S</a>
+                    <a href="#" style="color: orangered;" class="submenu-item">NON-ACADEMIC'S</a>
+                </div>
+            </li>
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>MY PROJECT</b></a>
+                <div class="submenu">
+                    <a href="#" style="color:orangered;" class="submenu-item">PROJECT 1</a>
+                    <a href="#" style="color: orangered;" class="submenu-item">PROJECT 2</a>
+                    <a href="#" style="color: orangered;" class="submenu-item">PROJECT 3</a>
+                    <a href="#" style="color: orangered;" class="submenu-item">PROJECT 4</a>
+                </div>
+            </li>
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>BLOG</b></a>
+            </li>
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>SOCIAL</b></a>
+                <div class="submenu">
+                    
+                    <p>
+                        <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LINKEDIN</a> 
+                        <a href="https://www.instagram.com/mamtaxttri7076/" target="_blank">INSTAGRAM</a> 
+                        <a href="https://www.facebook.com/suku.tamang.75286/" target="_blank">FACEBOOK</a>
+                        <a href="https://www.snapchat.com" target="_blank">SNAPCHAT</a>
+                        <li class="menu-option">
+                            <li class="menu-option">
+                                <a href="#" style="color: orangered;"><b>CONTACT</b></a>
+                                <div class="submenu">
+                            
+                    </p>
+                </div>
+            </li>
+        </ul>
+        
+        <div class="auth-links">
+            <a href="logreg.html">REG/LOG</a>
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel" id="textCarousel">
+            <div class="text-slide active">
+                Hi, I'm Mamta, and my hobby is watching web series. I love immersing myself in different stories and exploring various genres. Whether it's thrilling mysteries, heartwarming dramas, or mind-bending science fiction, I find joy in the diverse narratives and character developments. Watching web series allows me to relax, unwind, and experience new perspectives from the comfort of my home. It's not just entertainment for me; it's a way to connect with different cultures and ideas.</div>
+            <div class="text-slide"><B><h4>WEB APPLICATION</h4></B> <BR><h3></h3>Web applications have revolutionized the way we interact with technology, enabling seamless and efficient experiences across various domains including communication, commerce, education, and entertainment. Unlike traditional desktop applications, web applications are accessed via web browsers and are hosted on web servers, making them accessible from virtually any device with internet connectivity.</h3></div>
+            <div class="text-slide"><B><h4>CYBER SECURITY </h4></B><BR><h3></h3>In an era where digital technology permeates every aspect of our lives, cyber security has emerged as a critical area of focus for individuals, businesses, and governments alike. As we increasingly rely on interconnected systems for communication, commerce, and governance, the need to protect these systems from malicious attacks becomes paramount. This essay explores the importance of cyber security.</h3></div>
+        </div>
+        <div class="carousel" id="imageCarousel">
+            <img src="image1.jpeg" alt="Image 1" class="active">
+            <img src="images2.jpeg" alt="Image 2">
+            <img src="images3.jpeg" alt="image 3">
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-section">
+            <h4>About</h4>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Careers</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>My Project</h4>
+            <ul>
+                <li><a href="#">Project 1</a></li>
+                <li><a href="#">Project 2</a></li>
+                <li><a href="#">Project 3</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Blogs</h4>
+            <ul>
+                <li><a href="#">Latest Posts</a></li>
+                <li><a href="#">Popular Posts</a></li>
+                <li><a href="#">Archived Posts</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Social</h4>
+            <ul>
+                <li><a href="https://www.facebook.com/suku.tamang.75286/">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="https://www.instagram.com/mamtaxttri7076/">Instagram</a></li>
+            </ul>
+        </div>
+        <div class="google-map">
+            <!-- Add Google Map iframe -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28640.219204049847!2d88.49429801692364!3d27.233819805244276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x374916081b3950b9%3A0x9d0551192a8e5458!2sSingtam%20Sankhola!5e0!3m2!1sen!2sin!4v1645526678608!5m2!1sen!2sin" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </footer>
+
+    <script>
+        let imageIndex = 0;
+        let textIndex = 0;
+        const images = document.querySelectorAll('#imageCarousel img');
+        const textSlides = document.querySelectorAll('#textCarousel .text-slide');
+
+        function showNextImage() {
+            images[imageIndex].classList.remove('active');
+            imageIndex = (imageIndex + 1) % images.length;
+            images[imageIndex].classList.add('active');
+        }
+
+        function showNextText() {
+            textSlides[textIndex].classList.remove('active');
+            textIndex = (textIndex + 1) % textSlides.length;
+            textSlides[textIndex].classList.add('active');
+        }
+
+        setInterval(showNextImage, 3000); // Change image every 3 seconds
+        setInterval(showNextText, 3000); // Change text every 3 seconds
+
+        document.body.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+        });
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General styling for the menu bar */
+        .menu-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #c5c6c7;
+            padding: 10px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 50px; /* Adjust based on your logo size */
+        }
+
+        .menu-options {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-option {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .menu-option a {
+            text-decoration: none;
+            color: orangered;
+            padding: 10px 15px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-option a:hover {
+            background-color: #e9ecef;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .submenu-item {
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+
+        .submenu-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .menu-option:hover .submenu {
+            display: block;
+        }
+
+        /* Carousel container styling */
+        .carousel-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            width: 48%;
+            overflow: hidden;
+            
+            border-radius: 5px;
+        }
+
+        .carousel img, .carousel .text-slide {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        .carousel img.active, .carousel .text-slide.active {
+            display: block;
+        }
+
+        .carousel .text-slide {
+            padding: 20px;
+            box-sizing: border-box;
+            height: 300px; /* Ensure a consistent height for all text slides */
+            overflow: auto; /* Ensure content is scrollable if it exceeds the height */
+        }
+
+        /* Fixed image size */
+        .carousel img {
+            width: 100%;
+            height: 300px; /* Set a fixed height */
+            object-fit: cover; /* Ensure the image covers the area */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .menu-bar {
+                flex-direction: column;
+            }
+
+            .menu-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu-option {
+                margin: 10px 0;
+            }
+
+            .menu-bar .auth-links {
+                margin-top: 10px;
+            }
+
+            .carousel-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .carousel {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+        
+        .auth-links a {
+            color: #fff;
+            width: 130px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(15, 15, 15);
+           
+            font-weight: 600;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px rgba(47, 46, 46, 0.103);
+            position: relative;
+            overflow: hidden;
+            transition-duration: .3s;
+        }
+
+        .auth-links a::before {
+            width: 130px;
+            height: 130px;
+            position: absolute;
+            content: "";
+            background-color: white;
+           
+            left: -100%;
+            top: 0;
+            transition-duration: .3s;
+            mix-blend-mode: difference;
+        }
+
+        .auth-links a:hover::before {
+            transition-duration: .5s;
+            transform: translate(100%,-50%);
+           
+        }
+
+        .auth-links a:active {
+            transform: translate(5px,5px);
+            transition-duration: .3s;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            margin-bottom: 20px;
+            flex: 1 1 200px; /* Flex-grow, flex-shrink, and flex-basis */
+            min-width: 200px; /* Ensures a minimum width for responsiveness */
+        }
+
+        .footer-section h4 {
+            margin-bottom: 5px;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin: 5px 0;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .google-map {
+            flex: 1 1 300px; /* Adjust the flex basis as needed */
+            max-width: 300px; /* Set a maximum width for the map */
+            margin-left: 20px; /* Add some space between the sections */
+        }
+
+        .google-map iframe {
+            width: 100%;
+            height: 200px; /* Adjust height as needed */
+            border: none;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #fff; /* Change the color as needed */
+            margin: 20px 0; /* Adjust the margin as needed */
+        }
+
+        /* Dark theme styles */
+        .dark-theme {
+            background-color: #1d1d1d;
+            color: #c5c6c7;
+        }
+
+        .dark-theme .menu-bar {
+            background-color: #333;
+        }
+
+        .dark-theme .menu-option a {
+            color: #f0a500;
+        }
+
+        .dark-theme .submenu {
+            background-color: #444;
+        }
+
+        .dark-theme .submenu-item {
+            color: #f0a500;
+        }
+
+        .dark-theme .submenu-item:hover {
+            background-color: #555;
+        }
+
+        .dark-theme footer {
+            background-color: #111;
+        }
+
+        .dark-theme .footer-section a {
+            color: #f0a500;
+        }
+
+        .dark-theme .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* Popup styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: ;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .popup button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: orangered;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .popup button:hover {
+            background-color: #e65c00;
+        }
+
+        .popup button:focus {
+            outline: none;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-bar">
+        <div class="logo">
+            <img src="logoooo.png" alt="Logo">
+        </div>
+        
+        <ul class="menu-options">
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>HOME</b></a>
+            </li>
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>ABOUT</b></a>
+                <div class="submenu">
+                    <a href="#" style="color: orangered;" class="submenu-item">ACADEMIC'S</a>
+                    <a href="#" style="color: orangered;" class="submenu-item">NON-ACADEMIC'S</a>
+                </div>
+            </li>
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>MY PROJECT</b></a>
+                <div class="submenu">
+                    <a href="#" style="color:orangered;" class="submenu-item">PROJECT 1</a>
+                    <a href="#" style="color: orangered;" class="submenu-item">PROJECT 2</a>
+                    <a href="#" style="color: orangered;" class="submenu-item">PROJECT 3</a>
+                    <a href="#" style="color: orangered;" class="submenu-item">PROJECT 4</a>
+                </div>
+            </li>
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>BLOG</b></a>
+            </li>
+            <li class="menu-option">
+                <a href="#" style="color: orangered;"><b>SOCIAL</b></a>
+                <div class="submenu">
+                    
+                    <p>
+                        <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LINKEDIN</a> 
+                        <a href="https://www.instagram.com/mamtaxttri7076/" target="_blank">INSTAGRAM</a> 
+                        <a href="https://www.facebook.com/suku.tamang.75286/" target="_blank">FACEBOOK</a>
+                        <a href="https://www.snapchat.com" target="_blank">SNAPCHAT</a>
+                        <li class="menu-option">
+                            <a href="#" style="color: orangered;"><b>CONTACT</b></a>
+                            <div class="submenu">
+                                
+                    </p>
+                </div>
+            </li>
+        </ul>
+        
+        <div class="auth-links">
+            <a href="logreg.html">REG/LOG</a>
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel" id="textCarousel">
+            <div class="text-slide active">
+                Hi, I'm Mamta, and my hobby is watching web series. I love immersing myself in different stories and exploring various genres. Whether it's thrilling mysteries, heartwarming dramas, or mind-bending science fiction, I find joy in the diverse narratives and character developments. Watching web series allows me to relax, unwind, and experience new perspectives from the comfort of my home. It's not just entertainment for me; it's a way to connect with different cultures and ideas.</div>
+            <div class="text-slide"><B><h4>WEB APPLICATION</h4></B> <BR><h3></h3>Web applications have revolutionized the way we interact with technology, enabling seamless and efficient experiences across various domains including communication, commerce, education, and entertainment. Unlike traditional desktop applications, web applications are accessed via web browsers and are hosted on web servers, making them accessible from virtually any device with internet connectivity.</h3></div>
+            <div class="text-slide"><B><h4>CYBER SECURITY </h4></B><BR><h3></h3>In an era where digital technology permeates every aspect of our lives, cyber security has emerged as a critical area of focus for individuals, businesses, and governments alike. As we increasingly rely on interconnected systems for communication, commerce, and governance, the need to protect these systems from malicious attacks becomes paramount. This essay explores the importance of cyber security.</h3></div>
+        </div>
+        <div class="carousel" id="imageCarousel">
+            <img src="image1.jpeg" alt="Image 1" class="active">
+            <img src="images2.jpeg" alt="Image 2">
+            <img src="images3.jpeg" alt="image 3">
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-section">
+            <h4>About</h4>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Careers</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>My Project</h4>
+            <ul>
+                <li><a href="#">Project 1</a></li>
+                <li><a href="#">Project 2</a></li>
+                <li><a href="#">Project 3</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Blogs</h4>
+            <ul>
+                <li><a href="#">Latest Posts</a></li>
+                <li><a href="#">Popular Posts</a></li>
+                <li><a href="#">Archived Posts</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Social</h4>
+            <ul>
+                <li><a href="https://www.facebook.com/suku.tamang.75286/">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="https://www.instagram.com/mamtaxttri7076/">Instagram</a></li>
+            </ul>
+        </div>
+        <div class="google-map">
+            <!-- Add Google Map iframe -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28640.219204049847!2d88.49429801692364!3d27.233819805244276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x374916081b3950b9%3A0x9d0551192a8e5458!2sSingtam%20Sankhola!5e0!3m2!1sen!2sin!4v1645526678608!5m2!1sen!2sin" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </footer>
+
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup" id="popup">
+        <h2>Welcome!</h2>
+        <p>Choose an option to proceed:</p>
+        <button onclick="location.href='logreg.html'">Login</button>
+        <button onclick="location.href='logreg.html'">Register</button>
+    </div>
+
+    <script>
+        let imageIndex = 0;
+        let textIndex = 0;
+        const images = document.querySelectorAll('#imageCarousel img');
+        const textSlides = document.querySelectorAll('#textCarousel .text-slide');
+
+        function showNextImage() {
+            images[imageIndex].classList.remove('active');
+            imageIndex = (imageIndex + 1) % images.length;
+            images[imageIndex].classList.add('active');
+        }
+
+        function showNextText() {
+            textSlides[textIndex].classList.remove('active');
+            textIndex = (textIndex + 1) % textSlides.length;
+            textSlides[textIndex].classList.add('active');
+        }
+
+        setInterval(showNextImage, 3000); // Change image every 3 seconds
+        setInterval(showNextText, 3000); // Change text every 3 seconds
+
+        document.body.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+        });
+
+        // Show popup after 10 seconds
+        setTimeout(function() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('popupOverlay').style.display = 'block';
+        }, 10000);
+    </script>
+</body>
+</html>
